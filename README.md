@@ -4,7 +4,7 @@
 
 This is a simple demo project showcasing how you could use [jscanify](https://github.com/ColonelParrot/jscanify) inside of a React project. Check out the original [repo](https://github.com/ColonelParrot/jscanify) to see the full capabilities of jscanify.
 
-Check out a demo of this project [here]([https://codesandbox.io/p/github/InnigerM/react-scanify-demo/master](https://codesandbox.io/p/github/ColonelParrot/react-scanify-demo/master?file=/src/App.jsx))
+Check out a demo of this project [here](https://codesandbox.io/p/github/ColonelParrot/react-scanify-demo/master?file=/src/App.jsx)
 
 ## Run project locally
 
