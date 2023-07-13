@@ -51,36 +51,34 @@ export const Scanner = () => {
       const canvasCtx = canvasRef.current.getContext("2d");
       const resultCtx = resultRef.current.getContext("2d");
       console.log(canvasCtx, navigator.mediaDevices, videoE)
-      if (navigator.mediaDevices) {
-        navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: 'environment'
-          }
-        }).then((stream) => {
-          videoRef.current.srcObject = stream;
-          videoRef.current.mute = true;
-          videoRef.current.onloadedmetadata = () => {
-            videoRef.current.play();
-            setInterval(() => {
-              canvasCtx.drawImage(videoRef.current, 0, 0);
-              if (canvasRef.current.width !== 0 && canvasRef.current.height !== 0) {
-                const resultCanvas = scanner.highlightPaper(canvasRef.current);
-                resultCtx.drawImage(resultCanvas, 0, 0);
-              }
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: 'environment'
+        }
+      }).then((stream) => {
+        videoRef.current.srcObject = stream;
+        videoRef.current.mute = true;
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current.play();
+          setInterval(() => {
+            canvasCtx.drawImage(videoRef.current, 0, 0);
+            if (canvasRef.current.width !== 0 && canvasRef.current.height !== 0) {
+              const resultCanvas = scanner.highlightPaper(canvasRef.current);
+              resultCtx.drawImage(resultCanvas, 0, 0);
+            }
 
 
-              // containerRef.current.innerHTML = '';
-              // const newImg = document.createElement('img');
-              // newImg.onload = function () {
-              //   containerRef.current.append(resultCanvas);
-              // };
-            }, 10);
-          };
-        })
-          .catch((err) => {
-            /* handle the error */
-          });
-      }
+            // containerRef.current.innerHTML = '';
+            // const newImg = document.createElement('img');
+            // newImg.onload = function () {
+            //   containerRef.current.append(resultCanvas);
+            // };
+          }, 10);
+        };
+      })
+        .catch((err) => {
+          /* handle the error */
+        });
 
 
 
