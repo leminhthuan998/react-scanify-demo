@@ -61,7 +61,7 @@ export const Scanner = () => {
             videoRef.current.play();
 
             setInterval(() => {
-              canvasCtx.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
+              canvasCtx.drawImage(videoRef.current, 0, 0);
               const resultCanvas = scanner.highlightPaper(canvasRef.current);
               resultCtx.drawImage(resultCanvas, 0, 0);
 
@@ -127,7 +127,7 @@ export const Scanner = () => {
       <div ref={containerRef} id="result-container"></div> */}
       <div>
         <video
-          id='video' className='video-custom' ref={videoRef} style={{ display: 'none' }} />
+          id='video' className='video-custom' ref={videoRef} />
 
       </div>
       <div> <canvas id='myCanvas' ref={canvasRef} style={{ display: 'none' }} /></div>
