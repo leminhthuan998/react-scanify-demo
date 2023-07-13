@@ -62,6 +62,8 @@ export const Scanner = () => {
           videoRef.current.play();
           setInterval(() => {
             canvasCtx.drawImage(videoRef.current, 0, 0);
+            console.log(canvasRef.current)
+
             if (canvasRef.current.width !== 0 && canvasRef.current.height !== 0) {
               const resultCanvas = scanner.highlightPaper(canvasRef.current);
               resultCtx.drawImage(resultCanvas, 0, 0);
