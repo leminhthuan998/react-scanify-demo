@@ -8,7 +8,7 @@ export const Scanner = () => {
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   const resultRef = useRef(null);
-
+  const initLoad = useRef(true)
   const openCvURL = 'https://docs.opencv.org/4.7.0/opencv.js';
 
   const [loadedOpenCV, setLoadedOpenCV] = useState(false);
@@ -40,30 +40,34 @@ export const Scanner = () => {
     // eslint-disable-next-line no-undef
     const scanner = new jscanify();
     loadOpenCv(() => {
+
       const videoE = document.getElementById('video');
 
-      if (videoE) {
-        canvasRef.current.width = videoE.videoWidth;
-        canvasRef.current.height = videoE.videoHeight;
-        resultRef.current.width = videoE.videoWidth;
-        resultRef.current.height = videoE.videoHeight;
-      }
+      canvasRef.current.width = videoE ? videoE.videoWidth : 500;
+      canvasRef.current.height = videoE ? videoE.videoHeight : 500;
+      resultRef.current.width = videoE ? videoE.videoWidth : 500;
+      resultRef.current.height = videoE ? videoE.videoHeight : 500;
 
       const canvasCtx = canvasRef.current.getContext("2d");
       const resultCtx = resultRef.current.getContext("2d");
       console.log(canvasCtx, navigator.mediaDevices, videoE)
       if (navigator.mediaDevices) {
-        navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+        navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'environment'
+          }
+        }).then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.mute = true;
-          console.log(videoRef.current)
           videoRef.current.onloadedmetadata = () => {
             videoRef.current.play();
-
             setInterval(() => {
               canvasCtx.drawImage(videoRef.current, 0, 0);
-              const resultCanvas = scanner.highlightPaper(canvasRef.current);
-              resultCtx.drawImage(resultCanvas, 0, 0);
+              if (canvasRef.current.width !== 0 && canvasRef.current.height !== 0) {
+                const resultCanvas = scanner.highlightPaper(canvasRef.current);
+                resultCtx.drawImage(resultCanvas, 0, 0);
+              }
+
 
               // containerRef.current.innerHTML = '';
               // const newImg = document.createElement('img');
@@ -81,14 +85,16 @@ export const Scanner = () => {
 
 
     });
-
+    // initLoad.current = false
   }, []);
 
   const loadOpenCv = (onComplete) => {
     const isScriptPresent = !!document.getElementById('open-cv');
     if (isScriptPresent || loadedOpenCV) {
       setLoadedOpenCV(true);
-      onComplete();
+      setTimeout(function () {
+        onComplete();
+      }, 2000);
     } else {
       const script = document.createElement('script');
       script.id = 'open-cv';
@@ -97,12 +103,13 @@ export const Scanner = () => {
       script.onload = function () {
         setTimeout(function () {
           onComplete();
-        }, 1000);
+        }, 2000);
         setLoadedOpenCV(true);
       };
       document.body.appendChild(script);
     }
   };
+  console.log(2)
 
   return (
     <>
