@@ -137,7 +137,7 @@ export const Scanner = () => {
           id='video' className='video-custom' ref={videoRef} />
 
       </div>
-      <div> <canvas id='myCanvas' ref={canvasRef} width="700" height="400" style={{ display: 'none' }} /></div>
+      <div> <canvas id='myCanvas' ref={canvasRef} width="700" height="400" style={{ opacity: 0 }} /></div>
       <div>   <canvas width="700" height="400" ref={resultRef} /></div>
       <div ref={containerRef} id="result-container"></div>
       <button onClick={() => {
