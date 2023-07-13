@@ -41,16 +41,20 @@ export const Scanner = () => {
     const scanner = new jscanify();
     loadOpenCv(() => {
 
-      const videoE = document.getElementById('video');
-
-      canvasRef.current.width = videoE ? videoE.videoWidth : 500;
-      canvasRef.current.height = videoE ? videoE.videoHeight : 500;
-      resultRef.current.width = videoE ? videoE.videoWidth : 500;
-      resultRef.current.height = videoE ? videoE.videoHeight : 500;
+      // const videoE = document.getElementById('video');
+      const canvasElement = document.getElementById("canvas");
+      // const canvasResultElement = document.getElementById("resultCanvas");
+      // canvasRef.current.width = videoE ? videoE.videoWidth : 500;
+      // canvasRef.current.height = videoE ? videoE.videoHeight : 500;
+      // resultRef.current.width = videoE ? videoE.videoWidth : 500;
+      // resultRef.current.height = videoE ? videoE.videoHeight : 500;
+      // canvasElement.width = videoE ? videoE.videoWidth : 500;
+      // canvasElement.height = videoE ? videoE.videoHeight : 500;
+      // canvasResultElement.width = videoE ? videoE.videoWidth : 500;
+      // canvasResultElement.height = videoE ? videoE.videoHeight : 500;
 
       const canvasCtx = canvasRef.current.getContext("2d");
       const resultCtx = resultRef.current.getContext("2d");
-      console.log(canvasCtx, navigator.mediaDevices, videoE)
       navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'environment'
@@ -62,9 +66,8 @@ export const Scanner = () => {
           videoRef.current.play();
           setInterval(() => {
             canvasCtx.drawImage(videoRef.current, 0, 0);
-            console.log(canvasRef.current)
 
-            if (canvasRef.current.width !== 0 && canvasRef.current.height !== 0) {
+            if (canvasElement.width !== 0 && canvasElement.height !== 0) {
               const resultCanvas = scanner.highlightPaper(canvasRef.current);
               resultCtx.drawImage(resultCanvas, 0, 0);
             }
@@ -137,8 +140,8 @@ export const Scanner = () => {
           id='video' className='video-custom' ref={videoRef} />
 
       </div>
-      <div> <canvas id='myCanvas' ref={canvasRef} width="700" height="400" style={{ opacity: 0 }} /></div>
-      <div>   <canvas width="700" height="400" ref={resultRef} /></div>
+      <div> <canvas id='canvas' width={640} height={480} ref={canvasRef} style={{ opacity: 0, }} /></div>
+      <div>   <canvas id='resultCanvas' width={640} height={480} ref={resultRef} style={{}} /></div>
       <div ref={containerRef} id="result-container"></div>
       <button onClick={() => {
 
