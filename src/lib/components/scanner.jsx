@@ -66,10 +66,8 @@ export const Scanner = () => {
           setInterval(() => {
             canvasCtx.drawImage(videoRef.current, 0, 0);
 
-            if (canvasElement.width !== 0 && canvasElement.height !== 0) {
-              const resultCanvas = scanner.highlightPaper(canvasRef.current);
-              resultCtx.drawImage(resultCanvas, 0, 0);
-            }
+            const resultCanvas = scanner.highlightPaper(canvasRef.current);
+            resultCtx.drawImage(resultCanvas, 0, 0);
 
 
             // containerRef.current.innerHTML = '';
@@ -139,7 +137,7 @@ export const Scanner = () => {
           id='video' className='video-custom' ref={videoRef} />
 
       </div>
-      <div> <canvas id='canvas' width={768} height={1024} ref={canvasRef} style={{ opacity: 0, }} /></div>
+      <div> <canvas id='canvas' ref={canvasRef} width={768} height={1024} /></div>
       <div>   <canvas id='resultCanvas' width={768} height={1024} ref={resultRef} style={{}} /></div>
       <div ref={containerRef} id="result-container"></div>
       <button onClick={() => {
@@ -162,7 +160,7 @@ export const Scanner = () => {
         // eslint-disable-next-line no-undef
         const scanner = new jscanify();
         // const imgData = resultRef.current.toDataURL("image/jpeg", 1.0);
-        const resultCanvas = scanner.extractPaper(resultRef.current, 768, 1024);
+        const resultCanvas = scanner.extractPaper(resultRef.current, 386, 500);
         const imgData1 = resultCanvas.toDataURL("image/jpeg", 1.0);
 
         const pdf = new jsPDF();
