@@ -51,7 +51,7 @@ export const Scanner = () => {
 
       const canvasCtx = canvasRef.current.getContext("2d");
       const resultCtx = resultRef.current.getContext("2d");
-      console.log(canvasCtx, navigator.mediaDevices)
+      console.log(canvasCtx, navigator.mediaDevices, videoE)
       if (navigator.mediaDevices) {
         navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
           videoRef.current.srcObject = stream;
@@ -130,8 +130,8 @@ export const Scanner = () => {
           id='video' className='video-custom' ref={videoRef} />
 
       </div>
-      <div> <canvas id='myCanvas' ref={canvasRef} style={{ display: 'none' }} /></div>
-      <div>   <canvas ref={resultRef} /></div>
+      <div> <canvas id='myCanvas' ref={canvasRef} width="700" height="400" style={{ display: 'none' }} /></div>
+      <div>   <canvas width="700" height="400" ref={resultRef} /></div>
       <div ref={containerRef} id="result-container"></div>
       <button onClick={() => {
 
