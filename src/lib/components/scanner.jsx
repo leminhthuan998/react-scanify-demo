@@ -8,7 +8,6 @@ export const Scanner = () => {
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   const resultRef = useRef(null);
-  const initLoad = useRef(true)
   const openCvURL = 'https://docs.opencv.org/4.7.0/opencv.js';
 
   const [loadedOpenCV, setLoadedOpenCV] = useState(false);
@@ -140,8 +139,8 @@ export const Scanner = () => {
           id='video' className='video-custom' ref={videoRef} />
 
       </div>
-      <div> <canvas id='canvas' width={640} height={480} ref={canvasRef} style={{ opacity: 0, }} /></div>
-      <div>   <canvas id='resultCanvas' width={640} height={480} ref={resultRef} style={{}} /></div>
+      <div> <canvas id='canvas' width={768} height={1024} ref={canvasRef} style={{ opacity: 0, }} /></div>
+      <div>   <canvas id='resultCanvas' width={768} height={1024} ref={resultRef} style={{}} /></div>
       <div ref={containerRef} id="result-container"></div>
       <button onClick={() => {
 
@@ -163,7 +162,7 @@ export const Scanner = () => {
         // eslint-disable-next-line no-undef
         const scanner = new jscanify();
         // const imgData = resultRef.current.toDataURL("image/jpeg", 1.0);
-        const resultCanvas = scanner.extractPaper(resultRef.current, 386, 500);
+        const resultCanvas = scanner.extractPaper(resultRef.current, 768, 1024);
         const imgData1 = resultCanvas.toDataURL("image/jpeg", 1.0);
 
         const pdf = new jsPDF();
