@@ -160,7 +160,7 @@ export const Scanner = () => {
         // eslint-disable-next-line no-undef
         const scanner = new jscanify();
         // const imgData = resultRef.current.toDataURL("image/jpeg", 1.0);
-        const resultCanvas = scanner.extractPaper(resultRef.current, 386, 500);
+        const resultCanvas = scanner.extractPaper(resultRef.current, 768, 1024);
         const imgData1 = resultCanvas.toDataURL("image/jpeg", 1.0);
 
         const pdf = new jsPDF();
